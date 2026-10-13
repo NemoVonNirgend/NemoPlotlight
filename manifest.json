@@ -1,0 +1,11 @@
+{
+  "display_name": "Nemo Plotlight",
+  "author": "NemoVonNirgend",
+  "version": "0.1.2",
+  "description": "Browse and import Plotlight characters, presets, lorebooks, and personas into SillyTavern.",
+  "requires": [],
+  "optional": [],
+  "js": "index.js",
+  "css": "style.css",
+  "loading_order": 1000
+}
