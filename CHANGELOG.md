@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3
+
+- Remove development-only tests, browser harnesses, lint configuration, package scripts, and test CI from extension installations.
+- Keep the README focused on installation and use. Extension features, bundled fonts, and the companion server helper are unchanged.
+
 ## 0.1.2
 
 - Replace the fork-only preset readback endpoint with upstream ST's `/api/settings/get`. Check UI/disk name collisions using Unicode normalization and verify saved prompts/order without modifying the active connection.

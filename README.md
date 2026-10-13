@@ -2,7 +2,7 @@
 
 Browse public [Plotlight](https://plotlightstudios.com) characters, Chat Completion presets, lorebooks, and personas from SillyTavern and import them into the native libraries.
 
-**Version 0.1.2 works with vanilla SillyTavern.** It uses native ST importers and standard settings endpoints. Tested against upstream release **1.19.0**, commit `06bde939fb1e9c4c8d8641d810f0a916b5bce127`, and NemoTavern API contracts. No minimum older ST version is claimed. There is no API key, Plotlight login, build step, or runtime package dependency.
+**Version 0.1.3 works with vanilla SillyTavern.** It uses native ST importers and standard settings endpoints. Tested against upstream release **1.19.0**, commit `06bde939fb1e9c4c8d8641d810f0a916b5bce127`, and NemoTavern API contracts. No minimum older ST version is claimed. There is no API key, Plotlight login, build step, or runtime package dependency.
 
 ## Install
 
@@ -56,27 +56,6 @@ Remote text is rendered through text nodes. Public downloads use `credentials: '
 Some published persona exports currently return HTTP404. Only that status invokes the helper's anonymous public-definition fallback. It copies full content or labeled appearance/body/personality/quirks/history sections, never a catalog teaser as the definition. This public projection can omit linked lorebooks and other fields; it is not a complete replacement for a repaired export. Permission errors and rate limits do not invoke the fallback.
 
 RoleCall runtime trackers, props, loadouts, private dependencies, and account settings are outside this extension. Card exports are not complete sprite/artwork archives. Stop generation before importing characters. Imports follow ST's normal tag settings and may select the imported character/preset; imported personas remain unselected.
-
-## Development and validation
-
-Node 20+; no installation is needed for unit tests or package checks:
-
-```sh
-npm test
-npm run check
-```
-
-`npm run lint` runs the pinned ESLint 8.57.1 development tool through `npx`; it is not a runtime dependency.
-
-Optional UI harnesses need a developer-provided Playwright installation and Chromium:
-
-```sh
-npm install --no-save playwright
-npx playwright install chromium
-npm run test:ui
-```
-
-These harnesses mock ST/Plotlight services. The release was additionally checked against an actual disposable vanilla ST server with public export fixtures: all four character formats; a 47-prompt preset; native preset save/readback, collision protection, connection preservation, and duplicate history; a 23-entry lorebook; published persona import and active-persona preservation; portrait persistence; desktop/mobile layouts; and helper responses. See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
