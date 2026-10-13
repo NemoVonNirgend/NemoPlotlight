@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4
+
+- Show a one-time helper installation toast after SillyTavern is ready, with copy/config/restart steps and a link to the bundled README.
+- Remember the notice per ST user and keep a Helper setup link in the Plotlight browser for later reference.
+- Expand the helper README with source folder locations, installation steps, hosted-server guidance, and update instructions.
+
 ## 0.1.3
 
 - Remove development-only tests, browser harnesses, lint configuration, package scripts, and test CI from extension installations.

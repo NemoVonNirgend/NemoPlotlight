@@ -1,4 +1,17 @@
 /* Plotlight discovery layout and typography with the active SillyTavern palette. */
+body #toast-container > .toast.npl-helper-toast {
+    width: min(540px, calc(100vw - 24px));
+    max-height: calc(100dvh - var(--topBarBlockSize, 35px) - 24px);
+    overflow-y: auto;
+    line-height: 1.5;
+    cursor: default;
+}
+.npl-helper-notice p { margin: 0.6em 0; }
+.npl-helper-notice ol { margin: 0.6em 0; padding-left: 1.4em; }
+.npl-helper-notice li { margin: 0.4em 0; }
+.npl-helper-notice code { overflow-wrap: anywhere; }
+.npl-helper-notice a { text-decoration: underline; }
+.npl-dialog .npl-helper-link { font-size: 12px; white-space: nowrap; text-decoration: none; }
 @font-face {
     font-family: 'NPL Cinzel';
     src: url('./fonts/Cinzel.ttf') format('truetype');
@@ -207,7 +220,10 @@
     .npl-card-tags { gap: 3px; }
     .npl-footer { gap: 14px; }
 }
-@media (max-width: 360px) { .npl-grid { grid-template-columns: 1fr; } }
+@media (max-width: 360px) {
+    .npl-grid { grid-template-columns: 1fr; }
+    .npl-brand-mark { display: none; }
+}
 @media (prefers-reduced-motion: reduce) { .npl-dialog *, .npl-dialog *::before, .npl-dialog *::after { transition: none; } .npl-card:hover { transform: none; } }
 #nemo_plotlight_browse { display: inline-flex; align-items: center; justify-content: center; margin: 0; flex-shrink: 0; }
 

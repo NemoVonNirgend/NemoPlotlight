@@ -1,4 +1,4 @@
-import { processDroppedFiles, saveSettingsDebounced } from '../../../../script.js';
+import { eventSource, event_types, processDroppedFiles, saveSettingsDebounced } from '../../../../script.js';
 import { extension_settings } from '../../../extensions.js';
 import { PlotlightClient, MODES, SORTS, publicUrl, portraitUrl, importAndVerify, fetchCardStats, PRESET_MODES, LOREBOOK_MODES, PERSONA_MODES } from './api.js';
 import { getPresetNames, importPreset } from './presets.js';
@@ -67,6 +67,40 @@ function sourceLink(item) {
         return node;
     } catch { return el('span'); }
 }
+function helperReadmeLink(text, className) {
+    const link = el('a', text, className);
+    link.href = new URL('./server-plugin/README.md', import.meta.url).href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    return link;
+}
+function showHelperInstallNotice() {
+    if (settings.helperInstallNoticeShown) return;
+
+    const notice = el('div', null, 'npl-helper-notice');
+    notice.append(el('p', 'A companion helper is included in this extension’s server-plugin folder. Install it for image previews, ratings/roses, and the persona-download fallback.'));
+    const steps = el('ol');
+    const copy = el('li', 'Copy the ');
+    copy.append(el('code', 'NemoPlotlight/server-plugin'), ' folder to ', el('code', 'SillyTavern/plugins/nemo-plotlight'), '.');
+    const config = el('li', 'In SillyTavern’s ');
+    config.append(el('code', 'config.yaml'), ', set ', el('code', 'enableServerPlugins: true'), '.');
+    steps.append(copy, config, el('li', 'Restart SillyTavern, then reload this page.'));
+    notice.append(steps, helperReadmeLink('Open helper README ↗'));
+    notice.append(el('p', 'The README has the full folder paths. Already installed? You can dismiss this notice. Find these instructions again under Helper setup in the Plotlight browser.'));
+    const toast = toastr.info(notice, 'Nemo Plotlight — helper setup', {
+        escapeHtml: false,
+        closeButton: true,
+        closeHtml: '<button type="button" aria-label="Dismiss helper installation notice">&times;</button>',
+        tapToDismiss: false,
+        timeOut: 0,
+        extendedTimeOut: 0,
+        toastClass: 'toast npl-helper-toast',
+    });
+    if (toast?.length) {
+        settings.helperInstallNoticeShown = true;
+        saveSettingsDebounced();
+    }
+}
 function knownImport(item, type = 'cards') {
     const record = settings[libraries[type].history][item.id];
     if (!record) return null;
@@ -96,7 +130,7 @@ function openBrowser(type = 'cards') {
     heading.append(title, el('span', 'DISCOVERY', 'npl-eyebrow'));
     brand.append(mark, heading);
     const headerActions = el('div', null, 'npl-header-actions');
-    headerActions.append(el('span', library.label, 'npl-category'), close);
+    headerActions.append(el('span', library.label, 'npl-category'), helperReadmeLink('Helper setup ↗', 'menu_button npl-helper-link'), close);
     header.append(brand, headerActions);
     const intro = el('p', library.intro, 'npl-muted npl-intro');
     const form = el('form', null, 'npl-search');
@@ -531,6 +565,8 @@ function mount() {
     }
 }
 mount();
+// APP_READY also fires for late listeners when ST is already running.
+eventSource.once(event_types.APP_READY, showHelperInstallNotice);
 // Remount if ST or a UI extension rebuilds the native character toolbar.
 const observer = new MutationObserver(mount);
 observer.observe(document.body, { childList: true, subtree: true });

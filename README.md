@@ -2,7 +2,7 @@
 
 Browse public [Plotlight](https://plotlightstudios.com) characters, Chat Completion presets, lorebooks, and personas from SillyTavern and import them into the native libraries.
 
-**Version 0.1.3 works with vanilla SillyTavern.** It uses native ST importers and standard settings endpoints. Tested against upstream release **1.19.0**, commit `06bde939fb1e9c4c8d8641d810f0a916b5bce127`, and NemoTavern API contracts. No minimum older ST version is claimed. There is no API key, Plotlight login, build step, or runtime package dependency.
+**Version 0.1.4 works with vanilla SillyTavern.** It uses native ST importers and standard settings endpoints. Tested against upstream release **1.19.0**, commit `06bde939fb1e9c4c8d8641d810f0a916b5bce127`, and NemoTavern API contracts. No minimum older ST version is claimed. There is no API key, Plotlight login, build step, or runtime package dependency.
 
 ## Install
 
@@ -19,6 +19,8 @@ For manual installation, put this repository's files inside your user's `extensi
 ### Companion server helper
 
 **Install the bundled helper for published-image previews, character ratings/roses, and the persona-download fallback.** The browser extension manager does not install server plugins.
+
+On first launch, a one-time setup toast explains the steps and links to the bundled [helper README](server-plugin/README.md). It stays open until dismissed and is remembered per ST user across reloads and extension updates. The Plotlight browser's **Helper setup** link reopens the README at any time. A browser cannot open the server's folder in Explorer or Finder; the README lists the usual locations.
 
 1. Copy this repository's **`server-plugin`** folder to **`SillyTavern/plugins/nemo-plotlight`**. The resulting path must be `SillyTavern/plugins/nemo-plotlight/index.mjs`.
 2. In ST's `config.yaml`, set:
